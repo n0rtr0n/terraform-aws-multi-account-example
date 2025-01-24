@@ -5,7 +5,7 @@ This repository demonstrates a working example of how a single management accoun
 
 ## Authentication
 
-By deafult, the AWS Terraform provider will apply resources in the account ID of the provided credentials. So, for example, if authenticated to AccountA, AccountA's id will be used in the Terraform plan for resources that use the provider. If credentials are provided, the connected account of those credentials will be used instead. However, if an `assume_role` block is defined with a valid role that can be assumed by the current authenticated session, it will be used in the plan/apply, and the Terraform runner will inherit the permission level of that role.
+By default, the AWS Terraform provider will apply resources in the account ID of the provided credentials. So, for example, if authenticated to AccountA, AccountA's id will be used in the Terraform plan for resources that use the provider. If credentials are provided, the connected account of those credentials will be used instead. However, if an `assume_role` block is defined with a valid role that can be assumed by the current authenticated session, it will be used in the plan/apply, and the Terraform runner will inherit the permission level of that role.
 
 ```hcl
 provider "aws" {
@@ -19,7 +19,7 @@ provider "aws" {
 }
 ```
 
-Note that in the example provider configuration above, `allowed_account_ids` also restrict the accounts to which these resources may be applied. This makes it much easier to prevent the accidental application of resources to an account where they should not exist by being explicit.
+Note that in the example provider configuration above, `allowed_account_ids` also restrict the accounts to which these resources may be applied. By being explicit, this makes it much easier to prevent the accidental application of resources to an account where they should not exist.
 
 ## Trust
 

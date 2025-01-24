@@ -2,7 +2,7 @@ provider "aws" {
   # this requires the terraform_role state to be applied. although we could grab the ARN from the
   # output of that state, the identifier should be stable enough, and this prevents a state lookup prior
   # to the provider declaration
-  # also, it will fail if the identity that is apply does not have access to assume this role
+  # also, it will fail if the identity that is applying does not have access to assume this role
   assume_role {
     role_arn = local.aws_accounts.sandbox.terraform_role_arn
   }
@@ -38,6 +38,7 @@ resource "aws_s3_bucket" "this" {
   }
 }
 
+# this should output the ARN of the role we assume in the provider definition
 output "current_role" {
   value = data.aws_caller_identity.this.arn
 }
