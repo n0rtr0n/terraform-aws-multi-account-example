@@ -7,7 +7,7 @@ This repository demonstrates a working example of how a single management accoun
 
 By deafult, the AWS Terraform provider will apply resources in the account ID of the provided credentials. So, for example, if authenticated to AccountA, AccountA's id will be used in the Terraform plan for resources that use the provider. If credentials are provided, the connected account of those credentials will be used instead. However, if an `assume_role` block is defined with a valid role that can be assumed by the current authenticated session, it will be used in the plan/apply, and the Terraform runner will inherit the permission level of that role.
 
-```
+```hcl
 provider "aws" {
   assume_role {
     role_arn = "<arn that the Terraform applier can assume>"
@@ -25,7 +25,7 @@ Note that in the example provider configuration above, `allowed_account_ids` als
 
 This works because of the way that AWS allows you to establish trust between identities. In this example, a role is created, that provides access from principals in AccountB to assume this role in AccountA, although the resource is created in AccountA. In this way, a cross-account trust relationship is established, and when a principal in AccountB is given the privileges to do so, it may assume this role in AccountA to perform actions defined in its attached policies, which in this case is very unrestricted admin access (please do not actually use this in production):
 
-```
+```hcl
 data "aws_iam_policy_document" "trust" {
   statement {
     effect = "Allow"
